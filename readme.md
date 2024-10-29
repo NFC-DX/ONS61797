@@ -3,6 +3,8 @@
 
 ## クラス概要
 ### Parameters
+portかip_addressのどちらかを指定して下さい。
+
 - **port** (`str`, optional): デバイス接続に使用するシリアルポート。デフォルトは `None`。
 - **ip_address** (`str`, optional): デバイス接続に使用する IP アドレス。デフォルトは `None`。
 
