@@ -161,7 +161,98 @@ portかip_addressのどちらかを指定して下さい。
 ##### Returns
 - **str**: デフォルトゲートウェイ。
 
-# ライセンス
+---
+
+# ONS61797Server
+
+ONS61797デバイスをLabRADサーバーを通じて制御するためのPythonプログラムです。本サーバーを利用することで、LabRADクライアントからのデバイス操作が可能になります。
+
+---
+
+## 概要
+
+このサーバーは、シリアル通信またはソケット通信で接続される**ONS61797デバイス**をLabRADサーバー経由で制御します。各種のコマンドでデバイスの状態を取得・設定し、LabRADネットワーク上で利用することが可能です。
+
+---
+
+## クラス: `ONS61797Server`
+
+### 機能概要
+
+- **LabradServerクラス**を継承して実装されたクラスで、LabRADプロトコルに従いONS61797デバイスを制御します。
+- **属性**
+  - `device`：`ONS61797`オブジェクトまたは`None`（接続がない場合）
+- **メソッド**：デバイスの接続、設定、取得、出力制御などの機能を提供します。
+
+### 設定関数一覧
+
+#### 1. 接続・切断
+- **`connect(c, port, ip_address)`**  
+  デバイスに接続する。
+  - **引数**：
+    - `port`: シリアルポート名
+    - `ip_address`: デバイスのIPアドレス
+- **`close(c)`**  
+  デバイスからの接続を切断し、`device`を`None`に設定。
+
+#### 2. 出力制御
+- **`on(c, channel)`**  
+  指定されたチャンネルの出力をオンにする。
+  - **引数**：
+    - `channel`: 制御するチャンネル番号
+- **`off(c, channel)`**  
+  指定されたチャンネルの出力をオフにする。
+  - **引数**：
+    - `channel`: 制御するチャンネル番号
+- **`get_output_state(c, channel)`**  
+  チャンネルの出力状態（オン/オフ）を取得。
+
+#### 3. 電圧設定と取得
+- **`set_voltage(c, channel, voltage)`**  
+  チャンネルに電圧を設定する。
+  - **引数**：
+    - `channel`: チャンネル番号
+    - `voltage`: 設定する電圧値
+- **`get_voltage(c, channel)`**  
+  チャンネルの現在の電圧を取得。
+
+#### 4. デバイス情報
+- **`get_device_information(c)`**  
+  デバイス情報（IDや型番など）を取得。
+
+#### 5. リセット機能
+- **`reset(c)`**  
+  デバイスをリセットする。
+
+#### 6. ネットワーク設定
+- **`set_ip_address(c, ip_address)`**  
+  デバイスのIPアドレスを設定。
+- **`get_ip_address(c)`**  
+  デバイスの現在のIPアドレスを取得。
+- **`set_subnet_mask(c, subnet_mask)`**  
+  サブネットマスクを設定。
+- **`get_subnet_mask(c)`**  
+  サブネットマスクの取得。
+- **`set_default_gateway(c, default_gateway)`**  
+  デフォルトゲートウェイを設定。
+- **`get_default_gateway(c)`**  
+  デフォルトゲートウェイの取得。
+
+---
+
+## 使用方法
+
+1. **サーバー起動**：
+   ```bash
+   python ons61797_server.py
+   ```
+   `__main__`ブロックで`util.runServer(__server__)`を呼び出し、サーバーを起動。
+
+2. **LabRADクライアント**から各メソッドを呼び出し、デバイス制御が可能。
+
+---
+
+# 著作権及びライセンス
 Copyright (c) 2024 NF Corporation  
 Released under the MIT license  
 https://opensource.org/licenses/mit-license.php
