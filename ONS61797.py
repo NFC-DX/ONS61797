@@ -42,7 +42,7 @@ class ONS61797(object):
     port : str
         The serial port used for communication.
     baudrate : int
-        The baudrate for serial communication, default is 115200.
+        The baudrate for serial communication, default is 9600.
     ip_address : str
         The IP address for socket communication.
     line_feed_code : str
