@@ -66,7 +66,7 @@ class ONS61797(object):
         """
         self.instrument = None
         self.port = port
-        self.baudrate = 115200
+        self.baudrate = 9600
         self.ip_address = ip_address
         self.line_feed_code = "\n"
         self.time_out = 10.0
@@ -135,6 +135,7 @@ class ONS61797(object):
             self.instrument.write(cmd.encode("utf-8"))
         elif self.kind == "socket":
             self.instrument.sendall(cmd.encode("utf-8"))
+        time.sleep(self.time_interval)
 
     def read(self) -> str:
         """
@@ -157,6 +158,7 @@ class ONS61797(object):
                     break
                 res += res_
             return res
+        time.sleep(self.time_interval)
 
     def query(self, cmd: str) -> str:
         """
@@ -173,7 +175,6 @@ class ONS61797(object):
             The response from the instrument.
         """
         self.write(cmd)
-        time.sleep(self.time_interval)
         return self.read()
 
     def on(self, channel: int):
