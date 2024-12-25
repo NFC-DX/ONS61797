@@ -147,9 +147,7 @@ class ONS61797(object):
             The response from the instrument.
         """
         if self.kind == "serial":
-            return self.instrument.read_until(
-                self.line_feed_code.encode("utf-8")
-            ).decode("utf-8")[:-1]
+            res = self.instrument.read_until(self.line_feed_code.encode("utf-8")).decode("utf-8")[:-1]
         elif self.kind == "socket":
             res = ""
             while True:
@@ -157,8 +155,8 @@ class ONS61797(object):
                 if res_ == self.line_feed_code:
                     break
                 res += res_
-            return res
         time.sleep(self.time_interval)
+        return res
 
     def query(self, cmd: str) -> str:
         """
